@@ -13,9 +13,10 @@ let items = ["Buy Food", "Prepare Food", "Cook Food", "Eat Food"];
 // set an empty array for new work items
 let workItems = ["Show Up"];
 // create new array for fun items
-let funItems = ["Watch TV", "Read a Book"];
+let funItems = ["Road Trip", "Play the Guitar", "Sing"];
 // set an empty array for new weekend items
-let weekendItems = ["Relax", "Watch TV"];
+let weekendItems = ["Sleep", "Relax", "Go out to eat"];
+
 
 // set EJS as the viewing engine to display html
 app.set('view engine', 'ejs');
@@ -44,6 +45,8 @@ app.post("/", function(req, res) {
     let item = req.body.newItem;
     
     // if route is /work, add to work list
+  // if list === Fun then go to /fun
+  // if list === Weekend then go to /weekend
     if (req.body.list === "Work") {
         workItems.push(item);
         res.redirect("/work");
@@ -80,6 +83,9 @@ app.get("/fun", function(req, res){
   let day = date.getDate();
     res.render("list", {listTitle: "Fun To Do List", newListItems: funItems})
 });
+
+// add an app.get for every route - /fun and /weekend
+//make sure your listTitlte starts off with Fun Items and Weekend Items
 
 // display weekend to do list
 app.get("/weekend", function(req, res){
